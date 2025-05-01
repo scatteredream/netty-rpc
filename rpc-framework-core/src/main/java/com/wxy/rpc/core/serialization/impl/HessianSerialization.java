@@ -14,8 +14,8 @@ import java.io.IOException;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName HessianSerialization
- * @Date 2023/1/5 12:24
+ * {@code @ClassName} HessianSerialization
+ * {@code @Date} 2025/1/5 12:24
  */
 public class HessianSerialization implements Serialization {
     @Override

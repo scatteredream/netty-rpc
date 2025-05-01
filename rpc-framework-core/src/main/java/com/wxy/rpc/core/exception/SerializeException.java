@@ -4,7 +4,7 @@ package com.wxy.rpc.core.exception;
  * @author Wuxy
  * @version 1.0
  * @ClassName SerializeException
- * @Date 2023/1/5 16:03
+ * @Date 2025/1/5 16:03
  */
 public class SerializeException extends RuntimeException {
 

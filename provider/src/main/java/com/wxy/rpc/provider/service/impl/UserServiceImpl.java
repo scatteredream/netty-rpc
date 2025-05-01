@@ -12,7 +12,7 @@ import java.util.List;
  * @author Wuxy
  * @version 1.0
  * @ClassName UserServiceImpl
- * @Date 2023/1/8 23:45
+ * @Date 2025/1/8 23:45
  */
 @RpcService(interfaceClass = UserService.class)
 public class UserServiceImpl implements UserService {

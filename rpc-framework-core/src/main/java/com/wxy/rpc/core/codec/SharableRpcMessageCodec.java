@@ -34,8 +34,8 @@ import java.util.List;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName SharableRpcMessageCodec
- * @Date 2023/1/4 23:51
+ * {@code @ClassName} SharableRpcMessageCodec
+ * {@code @Date} 2025/1/4 23:51
  * @see io.netty.handler.codec.MessageToMessageCodec
  * @see io.netty.channel.ChannelInboundHandlerAdapter
  * @see io.netty.channel.ChannelOutboundHandlerAdapter
@@ -45,7 +45,7 @@ public class SharableRpcMessageCodec extends MessageToMessageCodec<ByteBuf, RpcM
 
     // 编码器为出站处理，将 RpcMessage 编码为 ByteBuf 对象
     @Override
-    protected void encode(ChannelHandlerContext ctx, RpcMessage msg, List<Object> out) throws Exception {
+    protected void encode(ChannelHandlerContext ctx, RpcMessage msg, List<Object> out) {
         ByteBuf buf = ctx.alloc().buffer();
         MessageHeader header = msg.getHeader();
         // 4字节 魔数
@@ -83,7 +83,7 @@ public class SharableRpcMessageCodec extends MessageToMessageCodec<ByteBuf, RpcM
 
     // 解码器为入站处理，将 ByteBuf 对象解码成 RpcMessage 对象
     @Override
-    protected void decode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out) throws Exception {
+    protected void decode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out) {
         // 4字节 魔数
         int len = ProtocolConstants.MAGIC_NUM.length;
         byte[] magicNum = new byte[len];

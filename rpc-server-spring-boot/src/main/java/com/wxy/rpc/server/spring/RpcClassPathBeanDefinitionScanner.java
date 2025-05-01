@@ -12,7 +12,7 @@ import java.lang.annotation.Annotation;
  * @author Wuxy
  * @version 1.0
  * @ClassName RpcClassPathBeanDefinitionScanner
- * @Date 2023/1/9 17:56
+ * @Date 2025/1/9 17:56
  */
 public class RpcClassPathBeanDefinitionScanner extends ClassPathBeanDefinitionScanner {
 

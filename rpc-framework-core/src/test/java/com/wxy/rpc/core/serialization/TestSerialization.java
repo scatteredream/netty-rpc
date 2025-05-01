@@ -15,8 +15,8 @@ import java.net.UnknownHostException;
 /**
  * @author Wuxy
  * @version 1.0
- * @ClassName TestJdkSerialization
- * @Date 2023/1/5 17:22
+ * {@code @ClassName} TestJdkSerialization
+ * {@code @Date} 2025/1/5 17:22
  */
 public class TestSerialization {
 

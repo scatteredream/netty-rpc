@@ -31,7 +31,7 @@ import java.util.concurrent.TimeoutException;
  * @author Wuxy
  * @version 1.0
  * @ClassName NettyRpcClient
- * @Date 2023/1/6 17:28
+ * @Date 2025/1/6 17:28
  */
 @Slf4j
 public class NettyRpcClient implements RpcClient {

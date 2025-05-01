@@ -23,7 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Wuxy
  * @version 1.0
  * &#064;ClassName  ExtensionLoader
- * &#064;Date  2023/1/11 18:44
+ * &#064;Date  2025/1/11 18:44
  */
 @Slf4j
 public class ExtensionLoader<T> {

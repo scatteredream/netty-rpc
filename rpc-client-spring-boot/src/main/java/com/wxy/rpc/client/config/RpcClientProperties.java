@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author Wuxy
  * @version 1.0
  * @ClassName RpcClientProperties
- * @Date 2023/1/7 15:12
+ * @Date 2025/1/7 15:12
  */
 @Data
 @ConfigurationProperties(prefix = "rpc.client")

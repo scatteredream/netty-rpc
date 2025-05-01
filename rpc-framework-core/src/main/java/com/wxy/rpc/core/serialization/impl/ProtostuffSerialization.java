@@ -12,8 +12,8 @@ import io.protostuff.runtime.RuntimeSchema;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName ProtostuffSerialization
- * @Date 2023/1/11 15:24
+ * {@code @ClassName} ProtostuffSerialization
+ * {@code @Date} 2025/1/11 15:24
  */
 public class ProtostuffSerialization implements Serialization {
 

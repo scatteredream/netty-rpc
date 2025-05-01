@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
  * @author Wuxy
  * @version 1.0
  * @ClassName ThreadPoolConfig
- * @Date 2023/1/12 12:19
+ * @Date 2025/1/12 12:19
  */
 @Data
 public class ThreadPoolConfig {

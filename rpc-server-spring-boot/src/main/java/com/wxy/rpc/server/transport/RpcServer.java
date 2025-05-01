@@ -6,7 +6,7 @@ package com.wxy.rpc.server.transport;
  * @author Wuxy
  * @version 1.0
  * @ClassName RpcServer
- * @Date 2023/1/6 17:28
+ * @Date 2025/1/6 17:28
  */
 public interface RpcServer {
 

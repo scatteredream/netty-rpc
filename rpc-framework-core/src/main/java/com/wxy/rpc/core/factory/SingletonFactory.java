@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Wuxy
  * @version 1.0
  * @ClassName SingletonFactory
- * @Date 2023/1/6 19:16
+ * @Date 2025/1/6 19:16
  */
 public final class SingletonFactory {
     private static final Map<String, Object> OBJECT_MAP = new ConcurrentHashMap<>();

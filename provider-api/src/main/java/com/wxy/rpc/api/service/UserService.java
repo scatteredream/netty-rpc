@@ -8,7 +8,7 @@ import java.util.List;
  * @author Wuxy
  * @version 1.0
  * @ClassName UserService
- * @Date 2023/1/8 23:43
+ * @Date 2025/1/8 23:43
  */
 public interface UserService {
 

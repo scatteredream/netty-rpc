@@ -12,7 +12,7 @@ import java.net.UnknownHostException;
  * @author Wuxy
  * @version 1.0
  * @ClassName RpcServerProperties
- * @Date 2023/1/6 23:33
+ * @Date 2025/1/6 23:33
  */
 @Data
 @ConfigurationProperties(prefix = "rpc.server")

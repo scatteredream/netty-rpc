@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @author Wuxy
  * @version 1.0
  * @ClassName HeartbeatMessage
- * @Date 2023/1/7 18:31
+ * @Date 2025/1/7 18:31
  */
 @Data
 @Builder

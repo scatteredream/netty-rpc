@@ -13,8 +13,8 @@ import java.util.List;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName ServiceDiscovery
- * @Date 2023/1/5 21:05
+ * {@code @ClassName} ServiceDiscovery
+ * {@code @Date} 2025/1/5 21:05
  */
 @SPI
 public abstract class ServiceDiscovery {

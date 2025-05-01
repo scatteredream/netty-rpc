@@ -6,7 +6,7 @@ package com.wxy.rpc.core.extension;
  * @author Wuxy
  * @version 1.0
  * @ClassName ExtensionFactory
- * @Date 2023/1/11 22:30
+ * @Date 2025/1/11 22:30
  */
 @SPI
 public interface ExtensionFactory {

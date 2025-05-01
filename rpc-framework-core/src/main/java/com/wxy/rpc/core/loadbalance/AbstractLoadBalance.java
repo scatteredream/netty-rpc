@@ -11,7 +11,7 @@ import java.util.List;
  * @author Wuxy
  * @version 1.0
  * @ClassName AbstractLoadBalance
- * @Date 2023/1/10 22:31
+ * @Date 2025/1/10 22:31
  */
 public abstract class AbstractLoadBalance implements LoadBalance {
     @Override

@@ -43,7 +43,7 @@ import org.springframework.core.env.Environment;
  * @author Wuxy
  * @version 1.0
  * &#064;ClassName  RpcClientAutoConfiguration
- * &#064;Date  2023/1/8 12:06
+ * &#064;Date  2025/1/8 12:06
  */
 @Configuration
 @EnableConfigurationProperties(RpcClientProperties.class)

@@ -18,8 +18,8 @@ import java.util.Set;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName SerializationFactory
- * @Date 2023/1/5 12:21
+ * {@code @ClassName} SerializationFactory
+ * {@code @Date} 2025/1/5 12:21
  */
 @Slf4j
 public class SerializationFactory {

@@ -25,8 +25,8 @@ import java.util.stream.Collectors;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName ZookeeperServiceDiscovery
- * @Date 2023/1/5 21:07
+ * {@code @ClassName} ZookeeperServiceDiscovery
+ * {@code @Date} 2025/1/5 21:07
  * @see org.apache.curator.framework.CuratorFramework
  * @see org.apache.curator.x.discovery.ServiceDiscovery
  * @see org.apache.curator.x.discovery.ServiceCache

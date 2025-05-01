@@ -8,7 +8,7 @@ import java.util.function.Supplier;
  * @author Wuxy
  * @version 1.0
  * @ClassName Holder
- * @Date 2023/1/11 19:01
+ * @Date 2025/1/11 19:01
  */
 public class Holder<T> {
     private volatile T value;

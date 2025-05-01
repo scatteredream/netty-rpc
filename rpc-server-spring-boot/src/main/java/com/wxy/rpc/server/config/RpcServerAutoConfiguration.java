@@ -20,8 +20,8 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName RpcServerAutoConfiguration
- * @Date 2023/1/8 12:34
+ * {@code @ClassName} RpcServerAutoConfiguration
+ * {@code @Date} 2025/1/8 12:34
  */
 @Configuration
 @EnableConfigurationProperties(RpcServerProperties.class)

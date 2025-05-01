@@ -9,7 +9,7 @@ import com.wxy.rpc.core.protocol.RpcMessage;
  * @author Wuxy
  * @version 1.0
  * @ClassName RpcClient
- * @Date 2023/1/6 17:28
+ * @Date 2025/1/6 17:28
  */
 public interface RpcClient {
 

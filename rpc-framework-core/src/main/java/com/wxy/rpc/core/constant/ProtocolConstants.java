@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author Wuxy
  * @version 1.0
  * @ClassName ProtocolConstant
- * @Date 2023/1/5 17:32
+ * @Date 2025/1/5 17:32
  */
 public class ProtocolConstants {
 

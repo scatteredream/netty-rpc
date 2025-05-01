@@ -16,7 +16,7 @@ import java.net.URL;
  * @author Wuxy
  * @version 1.0
  * @ClassName HttpRpcClient
- * @Date 2023/1/7 11:12
+ * @Date 2025/1/7 11:12
  */
 @Slf4j
 public class HttpRpcClient implements RpcClient {

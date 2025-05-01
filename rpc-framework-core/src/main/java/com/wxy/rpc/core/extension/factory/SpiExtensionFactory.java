@@ -8,7 +8,7 @@ import com.wxy.rpc.core.extension.SPI;
  * @author Wuxy
  * @version 1.0
  * @ClassName SpiExtensionFactory
- * @Date 2023/1/11 22:33
+ * @Date 2025/1/11 22:33
  */
 public class SpiExtensionFactory implements ExtensionFactory {
     @Override

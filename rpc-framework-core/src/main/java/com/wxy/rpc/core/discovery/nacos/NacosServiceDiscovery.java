@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName NacosServiceDiscovery
- * @Date 2023/1/8 16:19
+ * {@code @ClassName} NacosServiceDiscovery
+ * {@code @Date} 2025/1/8 16:19
  * @see NamingService
  * @see com.alibaba.nacos.api.naming.pojo.Instance
  */

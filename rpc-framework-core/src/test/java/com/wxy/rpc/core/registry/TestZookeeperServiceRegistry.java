@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
  * @author Wuxy
  * @version 1.0
  * @ClassName TestZookeeperServiceRegistry
- * @Date 2023/1/5 22:50
+ * @Date 2025/1/5 22:50
  */
 public class TestZookeeperServiceRegistry {
 

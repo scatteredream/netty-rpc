@@ -10,8 +10,8 @@ import java.io.*;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName JdkSerialization
- * @Date 2023/1/5 12:24
+ * {@code @ClassName} JdkSerialization
+ * {@code @Date} 2025/1/5 12:24
  */
 public class JdkSerialization implements Serialization {
     @Override

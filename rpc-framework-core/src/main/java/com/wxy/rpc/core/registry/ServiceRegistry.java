@@ -10,7 +10,7 @@ import lombok.Setter;
  * @author Wuxy
  * @version 1.0
  * @ClassName ServiceRegistry
- * @Date 2023/1/5 21:06
+ * @Date 2025/1/5 21:06
  */
 @SPI
 public abstract class ServiceRegistry {

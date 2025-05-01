@@ -13,7 +13,7 @@ import java.util.Arrays;
  * @author Wuxy
  * @version 1.0
  * @ClassName TestExtensionLoader
- * @Date 2023/1/11 20:21
+ * @Date 2025/1/11 20:21
  */
 public class TestExtensionLoader {
 

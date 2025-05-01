@@ -5,10 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -22,8 +22,8 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName ExtensionLoader
- * @Date 2023/1/11 18:44
+ * &#064;ClassName  ExtensionLoader
+ * &#064;Date  2023/1/11 18:44
  */
 @Slf4j
 public class ExtensionLoader<T> {
@@ -36,38 +36,33 @@ public class ExtensionLoader<T> {
     /**
      * 扩展类加载器缓存，key - class，val - 对应的扩展器类
      */
-    private static final Map<Class<?>, ExtensionLoader<?>> EXTENSION_LOADERS = new ConcurrentHashMap<>();
+    private static final Map<Class<?>, ExtensionLoader<?>> classToLoaderMap = new ConcurrentHashMap<>();
 
     /**
      * 存储接口实现类的实例，key - impClass，val - object 实例对象
      */
-    private static final Map<Class<?>, Object> EXTENSION_INSTANCES = new ConcurrentHashMap<>();
+    private static final Map<Class<?>, Object> classToInstanceMap = new ConcurrentHashMap<>();
 
     /**
      * 拓展类加载器对应的接口类型
      */
     private final Class<?> type;
 
-    /**
-     * 扩展类工厂（实现依赖注入）
-     */
-    private final ExtensionFactory objectFactory;
 
     /**
      * 缓存的实例
      */
-    private final Map<String, Holder<Object>> cachedInstances = new ConcurrentHashMap<>();
+    private final Map<String, Holder<Object>> keyToInstanceHolderMap = new ConcurrentHashMap<>();
 
-    private final Holder<Object> cachedAdaptiveInstance = new Holder<>();
+//    private final Holder<Object> cachedAdaptiveInstance = new Holder<>();
 
     /**
      * 缓存的类型（当前接口的所有 Extension 类型，对应文件内的：String - key，implClass - value）
      */
-    private final Holder<Map<String, Class<?>>> cachedClasses = new Holder<>();
+    private final Map<String, Class<?>> keyToClassMap = new ConcurrentHashMap<>();
 
     private ExtensionLoader(Class<?> type) {
         this.type = type;
-        objectFactory = null;
     }
 
     /**
@@ -82,18 +77,13 @@ public class ExtensionLoader<T> {
         if (type == null) {
             throw new IllegalArgumentException("Extension type == null");
         }
-        if (!type.isInterface()) {
-            throw new IllegalArgumentException(String.format("Extension type (%s) is not an interface!", type));
-        }
+//        if (!type.isInterface()) {
+//            throw new IllegalArgumentException(String.format("Extension type (%s) is not an interface!", type));
+//        }为了支持非接口的扩展类
         if (type.getAnnotation(SPI.class) == null) {
             throw new IllegalArgumentException(String.format("Extension type (%s) is not an extension, " + "because it is NOT annotated with @%s!", type, SPI.class.getSimpleName()));
         }
-        ExtensionLoader<T> loader = (ExtensionLoader<T>) EXTENSION_LOADERS.get(type);
-        if (loader == null) {
-            EXTENSION_LOADERS.putIfAbsent(type, new ExtensionLoader<>(type));
-            loader = (ExtensionLoader<T>) EXTENSION_LOADERS.get(type);
-        }
-        return loader;
+        return (ExtensionLoader<T>) classToLoaderMap.computeIfAbsent(type, k -> new ExtensionLoader<>(type));
     }
 
     /**
@@ -108,25 +98,8 @@ public class ExtensionLoader<T> {
             throw new IllegalArgumentException("Extension name == null.");
         }
         // 先从缓存中取出对应实例 Holder
-        Holder<Object> holder = cachedInstances.get(name);
-        if (holder == null) {
-            cachedInstances.putIfAbsent(name, new Holder<>());
-            holder = cachedInstances.get(name);
-        }
-        // 再从 Holder 中取出实例
-        Object instance = holder.get();
-        if (instance == null) {
-            // 锁定当前的 holder 对象，此时 holder 为互斥资源
-            synchronized (holder) {
-                // 再次获取，防止已经被创建（单例模式的双从检查机制）
-                instance = holder.get();
-                if (instance == null) {
-                    instance = createExtension(name);
-                    holder.set(instance);
-                }
-            }
-        }
-        return (T) instance;
+        Holder<Object> holder = keyToInstanceHolderMap.computeIfAbsent(name, k -> new Holder<>(()-> createExtension(k)));
+        return (T) holder.get();
     }
 
     /**
@@ -138,44 +111,28 @@ public class ExtensionLoader<T> {
     @SuppressWarnings("unchecked")
     private T createExtension(String name) {
         // 获取指定 name 的拓展实现类类型
-        Class<?> clazz = getExtensionClasses().get(name);
+        Class<?> clazz = getExtensionClasses().get(name); // 从指定的目录加载当前接口的所有拓展类,返回一个map, key是拓展名, value是拓展类
         if (clazz == null) {
             throw new IllegalArgumentException("No such extension name " + name);
         }
-        // 获取对应类型的实例
-        T instance = (T) EXTENSION_INSTANCES.get(clazz);
-        // 如果为空则通过反射机制创建一个
-        if (instance == null) {
+        T t = (T) classToInstanceMap.computeIfAbsent(clazz, k -> {
             try {
-                EXTENSION_INSTANCES.putIfAbsent(clazz, clazz.newInstance());
-                instance = (T) EXTENSION_INSTANCES.get(clazz);
-            } catch (InstantiationException | IllegalAccessException e) {
+                return k.getDeclaredConstructor().newInstance();
+            } catch (InstantiationException | IllegalAccessException |
+                     InvocationTargetException | NoSuchMethodException e) {
                 log.error("Failed to create extension instance.", e);
+                throw new RuntimeException(e);
             }
-        }
-        return instance;
+        });
+        return t;
     }
 
     /**
      * 获取当前接口的所有扩展实现类类型
      */
     private Map<String, Class<?>> getExtensionClasses() {
-        // 先去 Holder 中读取当前接口的所有扩展实现类类型
-        Map<String, Class<?>> classes = cachedClasses.get();
-        // 如果为空，使用双从检查去加载并缓存
-        if (classes == null) {
-            // 锁定当前 cachedClasses的 holder（此时为互斥资源）
-            synchronized (cachedClasses) {
-                classes = cachedClasses.get();
-                if (classes == null) {
-                    classes = new HashMap<>();
-                    // 去加载所有的扩展类从指定的扩展服务加载目录（MATA-INF/extensions）
-                    loadDirectory(classes);
-                    cachedClasses.set(classes);
-                }
-            }
-        }
-        return classes;
+        loadDirectory(keyToClassMap);
+        return keyToClassMap;
     }
 
     /**
@@ -220,25 +177,23 @@ public class ExtensionLoader<T> {
                     line = line.substring(0, ci);
                 }
                 line = line.trim();
-                if (line.length() > 0) {
+                if (!line.isEmpty()) {
                     try {
                         // 找到 = 的第一个位置
                         final int i = line.indexOf("=");
                         String name = line.substring(0, i).trim();
                         String className = line.substring(i + 1).trim();
-                        if (name.length() > 0 && className.length() > 0) {
+                        if (!name.isEmpty() && !className.isEmpty()) {
                             Class<?> clazz = classLoader.loadClass(className);
                             extensionClasses.put(name, clazz);
                         }
                     } catch (ClassNotFoundException e) {
-                        log.error("Failed to load extension class (interface: " + type + ", class line: " + line + ") in "
-                                + resourceUrl + ", cause: " + e.getMessage(), e);
+                        log.error("Failed to load extension class (interface: {}, class line: {}) in {}, cause: {}", type, line, resourceUrl, e.getMessage(), e);
                     }
                 }
             }
         } catch (IOException e) {
-            log.error("Exception occurred when loading extension class (interface: " +
-                    type + ", class file: " + resourceUrl + ") in " + resourceUrl, e);
+            log.error("Exception occurred when loading extension class (interface: {}, class file: {}) in {}", type, resourceUrl, resourceUrl, e);
             throw new RuntimeException(e);
         }
     }

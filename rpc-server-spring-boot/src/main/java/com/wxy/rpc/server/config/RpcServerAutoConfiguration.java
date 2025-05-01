@@ -1,5 +1,8 @@
 package com.wxy.rpc.server.config;
 
+import com.wxy.rpc.core.extension.ExtensionFactory;
+import com.wxy.rpc.core.extension.Holder;
+import com.wxy.rpc.core.extension.factory.SpiExtensionFactory;
 import com.wxy.rpc.core.registry.ServiceRegistry;
 import com.wxy.rpc.core.registry.nacos.NacosServiceRegistry;
 import com.wxy.rpc.core.registry.zk.ZookeeperServiceRegistry;
@@ -10,7 +13,6 @@ import com.wxy.rpc.server.transport.netty.NettyRpcServer;
 import com.wxy.rpc.server.transport.socket.SocketRpcServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -30,58 +32,42 @@ import org.springframework.context.annotation.Primary;
 @EnableConfigurationProperties(RpcServerProperties.class)
 public class RpcServerAutoConfiguration {
 
-    @Autowired
-    RpcServerProperties properties;
+    private final Holder<ExtensionFactory> factoryHolder = new Holder<>(SpiExtensionFactory::new);
+    private final RpcServerProperties rpcServerProperties;
+    public RpcServerAutoConfiguration(RpcServerProperties properties) {
+        this.rpcServerProperties = properties;
+    }
 
     /**
      * 创建 ServiceRegistry 实例 bean，当没有配置时默认使用 zookeeper 作为配置中心
      */
     @Bean(name = "serviceRegistry")
-    @Primary
     @ConditionalOnMissingBean
-    @ConditionalOnProperty(prefix = "rpc.server", name = "registry", havingValue = "zookeeper", matchIfMissing = true)
-    public ServiceRegistry zookeeperServiceRegistry() {
-        return new ZookeeperServiceRegistry(properties.getRegistryAddr());
-    }
-
-    @Bean(name = "serviceRegistry")
-    @ConditionalOnMissingBean
-    @ConditionalOnProperty(prefix = "rpc.server", name = "registry", havingValue = "nacos")
-    public ServiceRegistry nacosServiceRegistry() {
-        return new NacosServiceRegistry(properties.getRegistryAddr());
+    public ServiceRegistry serviceRegistry() {
+        String registryKey = rpcServerProperties.getRegistry();
+        String registryAddr = rpcServerProperties.getRegistryAddr();
+        ServiceRegistry registry = factoryHolder.get().getExtension(ServiceRegistry.class, registryKey);
+        registry.setRegistryAddr(registryAddr);
+        registry.start();
+        return registry;
     }
 
     // 当没有配置通信协议属性时，默认使用 netty 作为通讯协议
     @Bean(name = "rpcServer")
-    @Primary
     @ConditionalOnMissingBean
-    @ConditionalOnProperty(prefix = "rpc.server", name = "transport", havingValue = "netty", matchIfMissing = true)
-    public RpcServer nettyRpcServer() {
-        return new NettyRpcServer();
-    }
-
-    @Bean(name = "rpcServer")
-    @ConditionalOnMissingBean
-    @ConditionalOnProperty(prefix = "rpc.server", name = "transport", havingValue = "http")
-    @ConditionalOnClass(name = {"org.apache.catalina.startup.Tomcat"})
-    public RpcServer httpRpcServer() {
-        return new HttpRpcServer();
-    }
-
-    @Bean(name = "rpcServer")
-    @ConditionalOnMissingBean
-    @ConditionalOnProperty(prefix = "rpc.server", name = "transport", havingValue = "socket")
-    public RpcServer socketRpcServer() {
-        return new SocketRpcServer();
+    public RpcServer getRpcServer() {
+        String transport = rpcServerProperties.getTransport();
+        if(transport.equalsIgnoreCase("http")) {
+            return new HttpRpcServer();
+        } else if(transport.equalsIgnoreCase("socket")) {
+            return new SocketRpcServer();
+        } else return new NettyRpcServer();
     }
 
     @Bean
     @ConditionalOnMissingBean
     @ConditionalOnBean({ServiceRegistry.class, RpcServer.class})
-    public RpcServerBeanPostProcessor rpcServerBeanPostProcessor(@Autowired ServiceRegistry serviceRegistry,
-                                                                 @Autowired RpcServer rpcServer,
-                                                                 @Autowired RpcServerProperties properties) {
-
+    public RpcServerBeanPostProcessor rpcServerBeanPostProcessor(ServiceRegistry serviceRegistry, RpcServer rpcServer, RpcServerProperties properties) {
         return new RpcServerBeanPostProcessor(serviceRegistry, rpcServer, properties);
     }
 

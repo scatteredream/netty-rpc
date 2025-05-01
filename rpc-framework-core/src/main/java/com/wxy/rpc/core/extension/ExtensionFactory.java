@@ -19,6 +19,6 @@ public interface ExtensionFactory {
      * @param <T>  实例类型
      * @return 返回对象实例
      */
-    <T> T getExtension(Class<?> type, String name);
+    <T> T getExtension(Class<T> type, String name);
 
 }

@@ -12,11 +12,18 @@ import com.wxy.rpc.core.extension.SPI;
  */
 public class SpiExtensionFactory implements ExtensionFactory {
     @Override
-    public <T> T getExtension(Class<?> type, String name) {
-        if (type.isInterface() && type.isAnnotationPresent(SPI.class)) {
-            ExtensionLoader<?> extensionLoader = ExtensionLoader.getExtensionLoader(type);
-            // todo: implement this method
+    public <T> T getExtension(Class<T> type, String name) {
+        if (type == null) {
+            throw new IllegalArgumentException("Extension type cannot be null");
         }
-        return null;
+//        if (!type.isInterface()) {
+//            throw new IllegalArgumentException("Extension type must be an interface");
+//        } 为了支持非接口的扩展类
+        SPI annotation = type.getAnnotation(SPI.class);
+        if (annotation == null) {
+            throw new IllegalArgumentException("Extension type must be annotated with @SPI");
+        }
+        ExtensionLoader<T> loader = ExtensionLoader.getExtensionLoader(type);
+        return loader.getExtension(name);
     }
 }

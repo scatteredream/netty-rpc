@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
  * @see org.apache.curator.x.discovery.ServiceCache
  */
 @Slf4j
-public class ZookeeperServiceDiscovery implements ServiceDiscovery {
+public class ZookeeperServiceDiscovery extends ServiceDiscovery {
     private static final int SESSION_TIMEOUT = 60 * 1000;
 
     private static final int CONNECT_TIMEOUT = 15 * 1000;
@@ -44,7 +44,6 @@ public class ZookeeperServiceDiscovery implements ServiceDiscovery {
 
     private static final String BASE_PATH = "/wxy_rpc";
 
-    private LoadBalance loadBalance;
 
     private CuratorFramework client;
 
@@ -63,18 +62,12 @@ public class ZookeeperServiceDiscovery implements ServiceDiscovery {
     private final Map<String, List<ServiceInfo>> serviceMap = new ConcurrentHashMap<>();
 
 
-    /**
-     * 构造方法，传入 zk 的连接地址，如：127.0.0.1:2181
-     *
-     * @param registryAddress zookeeper 的连接地址
-     */
-    public ZookeeperServiceDiscovery(String registryAddress, LoadBalance loadBalance) {
+    @Override
+    public void start() {
         try {
-            this.loadBalance = loadBalance;
-
             // 创建zk客户端示例
             client = CuratorFrameworkFactory
-                    .newClient(registryAddress, SESSION_TIMEOUT, CONNECT_TIMEOUT,
+                    .newClient(registryAddr, SESSION_TIMEOUT, CONNECT_TIMEOUT,
                             new ExponentialBackoffRetry(BASE_SLEEP_TIME, MAX_RETRY));
             // 开启客户端通信
             client.start();

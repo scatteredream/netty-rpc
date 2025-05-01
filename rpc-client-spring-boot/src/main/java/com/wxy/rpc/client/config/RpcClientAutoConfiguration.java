@@ -10,10 +10,15 @@ import com.wxy.rpc.client.transport.socket.SocketRpcClient;
 import com.wxy.rpc.core.discovery.ServiceDiscovery;
 import com.wxy.rpc.core.discovery.nacos.NacosServiceDiscovery;
 import com.wxy.rpc.core.discovery.zk.ZookeeperServiceDiscovery;
+import com.wxy.rpc.core.extension.ExtensionFactory;
+import com.wxy.rpc.core.extension.Holder;
+import com.wxy.rpc.core.extension.factory.SpiExtensionFactory;
 import com.wxy.rpc.core.loadbalance.impl.ConsistentHashLoadBalance;
 import com.wxy.rpc.core.loadbalance.LoadBalance;
 import com.wxy.rpc.core.loadbalance.impl.RandomLoadBalance;
 import com.wxy.rpc.core.loadbalance.impl.RoundRobinLoadBalance;
+import com.wxy.rpc.core.serialization.Serialization;
+import com.wxy.rpc.core.serialization.hessian.HessianSerialization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -47,8 +52,8 @@ import org.springframework.core.env.Environment;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName RpcClientAutoConfiguration
- * @Date 2023/1/8 12:06
+ * &#064;ClassName  RpcClientAutoConfiguration
+ * &#064;Date  2023/1/8 12:06
  */
 @Configuration
 @EnableConfigurationProperties(RpcClientProperties.class)
@@ -73,89 +78,62 @@ public class RpcClientAutoConfiguration {
         return bind.get();
     }
 
-    @Autowired
-    RpcClientProperties rpcClientProperties;
+    private final RpcClientProperties rpcClientProperties;
 
-    @Bean(name = "loadBalance")
-    @Primary
-    @ConditionalOnMissingBean // 不指定 value 则值默认为当前创建的类
-    @ConditionalOnProperty(prefix = "rpc.client", name = "loadbalance", havingValue = "random", matchIfMissing = true)
-    public LoadBalance randomLoadBalance() {
-        return new RandomLoadBalance();
+    public RpcClientAutoConfiguration(RpcClientProperties rpcClientProperties) {
+        this.rpcClientProperties = rpcClientProperties;
     }
+
+    private final Holder<ExtensionFactory> factoryHolder = new Holder<>(SpiExtensionFactory::new);
 
     @Bean(name = "loadBalance")
     @ConditionalOnMissingBean
-    @ConditionalOnProperty(prefix = "rpc.client", name = "loadbalance", havingValue = "roundRobin")
-    public LoadBalance roundRobinLoadBalance() {
-        return new RoundRobinLoadBalance();
-    }
-
-    @Bean(name = "loadBalance")
-    @ConditionalOnMissingBean
-    @ConditionalOnProperty(prefix = "rpc.client", name = "loadbalance", havingValue = "consistentHash")
-    public LoadBalance consistentHashLoadBalance() {
-        return new ConsistentHashLoadBalance();
-    }
-
-    @Bean(name = "serviceDiscovery")
-    @Primary
-    @ConditionalOnMissingBean
-    @ConditionalOnBean(LoadBalance.class)
-    @ConditionalOnProperty(prefix = "rpc.client", name = "registry", havingValue = "zookeeper", matchIfMissing = true)
-    public ServiceDiscovery zookeeperServiceDiscovery(@Autowired LoadBalance loadBalance) {
-        return new ZookeeperServiceDiscovery(rpcClientProperties.getRegistryAddr(), loadBalance);
+    public LoadBalance loadBalance() {
+        String loadBalanceKey = rpcClientProperties.getLoadBalance();
+        // 通过 SPI 扩展机制获取 LoadBalance 实现类
+        return factoryHolder.get().getExtension(LoadBalance.class, loadBalanceKey);
     }
 
     @Bean(name = "serviceDiscovery")
     @ConditionalOnMissingBean
-    @ConditionalOnBean(LoadBalance.class)
-    @ConditionalOnProperty(prefix = "rpc.client", name = "registry", havingValue = "nacos")
-    public ServiceDiscovery nacosServiceDiscovery(@Autowired LoadBalance loadBalance) {
-        return new NacosServiceDiscovery(rpcClientProperties.getRegistryAddr(), loadBalance);
+    public ServiceDiscovery serviceDiscovery(LoadBalance loadBalance) {
+        String discoveryKey = rpcClientProperties.getRegistry();
+        String registryAddr = rpcClientProperties.getRegistryAddr();
+        ServiceDiscovery discovery = factoryHolder.get().getExtension(ServiceDiscovery.class, discoveryKey);
+        discovery.setRegistryAddr(registryAddr);
+        discovery.setLoadBalance(loadBalance);
+        discovery.start();
+        return discovery;
     }
 
     @Bean(name = "rpcClient")
-    @Primary
     @ConditionalOnMissingBean
-    @ConditionalOnProperty(prefix = "rpc.client", name = "transport", havingValue = "netty", matchIfMissing = true)
-    public RpcClient nettyRpcClient() {
+    public RpcClient getRpcClient(){
+        String transport = rpcClientProperties.getTransport();
+        if(transport.equalsIgnoreCase("http"))
+            return new HttpRpcClient();
+        if(transport.equalsIgnoreCase("socket"))
+            return new SocketRpcClient();
         return new NettyRpcClient();
     }
-
-    @Bean(name = "rpcClient")
-    @ConditionalOnMissingBean
-    @ConditionalOnProperty(prefix = "rpc.client", name = "transport", havingValue = "http")
-    public RpcClient httpRpcClient() {
-        return new HttpRpcClient();
-    }
-
-    @Bean(name = "rpcClient")
-    @ConditionalOnMissingBean
-    @ConditionalOnProperty(prefix = "rpc.client", name = "transport", havingValue = "socket")
-    public RpcClient socketRpcClient() {
-        return new SocketRpcClient();
-    }
-
     @Bean
     @ConditionalOnMissingBean
     @ConditionalOnBean({ServiceDiscovery.class, RpcClient.class})
-    public ClientStubProxyFactory clientStubProxyFactory(@Autowired ServiceDiscovery serviceDiscovery,
-                                                         @Autowired RpcClient rpcClient,
-                                                         @Autowired RpcClientProperties rpcClientProperties) {
+    public ClientStubProxyFactory clientStubProxyFactory(ServiceDiscovery serviceDiscovery, RpcClient rpcClient, RpcClientProperties rpcClientProperties) {
         return new ClientStubProxyFactory(serviceDiscovery, rpcClient, rpcClientProperties);
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public RpcClientBeanPostProcessor rpcClientBeanPostProcessor(@Autowired ClientStubProxyFactory clientStubProxyFactory) {
+    public RpcClientBeanPostProcessor rpcClientBeanPostProcessor(ClientStubProxyFactory clientStubProxyFactory) {
         return new RpcClientBeanPostProcessor(clientStubProxyFactory);
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public RpcClientExitDisposableBean rpcClientExitDisposableBean(@Autowired ServiceDiscovery serviceDiscovery) {
-        return new RpcClientExitDisposableBean(serviceDiscovery);
+    public RpcClientExitDisposableBean rpcClientExitDisposableBean(
+            ServiceDiscovery serviceDiscovery, RpcClient rpcClient) {
+        return new RpcClientExitDisposableBean(serviceDiscovery,rpcClient);
     }
 
 }

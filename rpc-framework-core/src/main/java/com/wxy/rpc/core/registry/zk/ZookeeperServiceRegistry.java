@@ -3,6 +3,7 @@ package com.wxy.rpc.core.registry.zk;
 import com.wxy.rpc.core.common.ServiceInfo;
 import com.wxy.rpc.core.exception.RpcException;
 import com.wxy.rpc.core.registry.ServiceRegistry;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
@@ -23,7 +24,7 @@ import org.apache.curator.x.discovery.details.JsonInstanceSerializer;
  * @see org.apache.curator.x.discovery.ServiceDiscovery
  */
 @Slf4j
-public class ZookeeperServiceRegistry implements ServiceRegistry {
+public class ZookeeperServiceRegistry extends ServiceRegistry {
 
     private static final int SESSION_TIMEOUT = 60 * 1000;
 
@@ -39,17 +40,12 @@ public class ZookeeperServiceRegistry implements ServiceRegistry {
 
     private ServiceDiscovery<ServiceInfo> serviceDiscovery;
 
-
-    /**
-     * 构造方法，传入 zk 的连接地址，如：127.0.0.1:2181
-     *
-     * @param registryAddress zookeeper 的连接地址
-     */
-    public ZookeeperServiceRegistry(String registryAddress) {
+    @Override
+    public void start() {
         try {
             // 创建zk客户端示例
             client = CuratorFrameworkFactory
-                    .newClient(registryAddress, SESSION_TIMEOUT, CONNECT_TIMEOUT,
+                    .newClient(registryAddr, SESSION_TIMEOUT, CONNECT_TIMEOUT,
                             new ExponentialBackoffRetry(BASE_SLEEP_TIME, MAX_RETRY));
             // 开启客户端通信
             client.start();
@@ -62,6 +58,7 @@ public class ZookeeperServiceRegistry implements ServiceRegistry {
                     .build();
 
             serviceDiscovery.start();
+            log.info("Zookeeper registry started successfully, address: {}", registryAddr);
         } catch (Exception e) {
             log.error("An error occurred while starting the zookeeper registry: ", e);
         }

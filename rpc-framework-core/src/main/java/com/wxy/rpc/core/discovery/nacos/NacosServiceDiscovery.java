@@ -28,16 +28,11 @@ import java.util.stream.Collectors;
  * @see com.alibaba.nacos.api.naming.pojo.Instance
  */
 @Slf4j
-public class NacosServiceDiscovery implements ServiceDiscovery {
+public class NacosServiceDiscovery extends ServiceDiscovery {
     /**
      * Nacos 命名服务
      */
     private NamingService namingService;
-
-    /**
-     * 负载均衡算法
-     */
-    private LoadBalance loadBalance;
 
     /**
      * 用来将服务列表缓存到本地内存，当服务发生变化时，由 serviceCache 进行服务列表更新操作，当 nacos 挂掉时，将保存当前服务列表以便继续提供服务
@@ -45,15 +40,9 @@ public class NacosServiceDiscovery implements ServiceDiscovery {
     private final Map<String, List<ServiceInfo>> serviceMap = new ConcurrentHashMap<>();
 
 
-    /**
-     * 构造方法，传入 nacos 连接地址和指定的负载均衡算法
-     *
-     * @param registryAddr nacos服务地址，例如 localhost:8848
-     * @param loadBalance  负载均衡算法
-     */
-    public NacosServiceDiscovery(String registryAddr, LoadBalance loadBalance) {
+    @Override
+    public void start() {
         try {
-            this.loadBalance = loadBalance;
             this.namingService = NamingFactory.createNamingService(registryAddr);
         } catch (NacosException e) {
             log.error("An error occurred while starting the nacos discovery: ", e);

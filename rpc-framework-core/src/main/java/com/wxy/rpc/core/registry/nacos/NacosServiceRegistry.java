@@ -8,6 +8,7 @@ import com.wxy.rpc.core.common.ServiceInfo;
 import com.wxy.rpc.core.exception.RpcException;
 import com.wxy.rpc.core.registry.ServiceRegistry;
 import com.wxy.rpc.core.util.ServiceUtil;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -22,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
  * @Date 2023/1/8 16:18
  */
 @Slf4j
-public class NacosServiceRegistry implements ServiceRegistry {
+public class NacosServiceRegistry extends ServiceRegistry {
 
     /**
      * Nacos 命名服务
@@ -30,16 +31,12 @@ public class NacosServiceRegistry implements ServiceRegistry {
     private NamingService namingService;
 
 
-    /**
-     * 构造方法，传入 nacos 的连接地址，例如：localhost:8848
-     *
-     * @param registryAddr nacos 连接地址
-     */
-    public NacosServiceRegistry(String registryAddr) {
+    @Override
+    public void start() {
         try {
             // 创建Nacos命名服务
             namingService = NamingFactory.createNamingService(registryAddr);
-
+            log.info("Nacos registry started successfully, address: {}", registryAddr);
         } catch (Exception e) {
             log.error("An error occurred while starting the nacos registry: ", e);
         }

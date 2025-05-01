@@ -18,7 +18,7 @@ public class RpcClientProperties {
     /**
      * Load balancing algorithm, candidate values include: (random, roundRobin, consistentHash), the default is random.
      */
-    private String loadbalance;
+    private String loadBalance;
 
     /**
      * Serialization algorithm, candidate values include: (JDK, JSON, HESSIAN, KRYO, PROTOSTUFF), default: HESSIAN
@@ -46,8 +46,8 @@ public class RpcClientProperties {
     private Integer timeout;
 
     public RpcClientProperties() {
-        this.loadbalance = "random";
-        this.serialization = "HESSIAN";
+        this.loadBalance = "random";
+        this.serialization = "hessian";
         this.transport = "netty";
         this.registry = "zookeeper";
         this.registryAddr = "127.0.0.1:2181";

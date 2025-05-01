@@ -1,5 +1,7 @@
 package com.wxy.rpc.core.extension;
 
+import java.util.function.Supplier;
+
 /**
  * Holder 类，作用是为不可变的对象引用提供一个可变的包装
  *
@@ -9,15 +11,20 @@ package com.wxy.rpc.core.extension;
  * @Date 2023/1/11 19:01
  */
 public class Holder<T> {
-
     private volatile T value;
-
-    public T get() {
-        return value;
+    private final Supplier<T> supplier;
+    public Holder(Supplier<T> supplier) {
+        this.supplier = supplier;
     }
-
-    public void set(T value) {
-        this.value = value;
+    public T get() {
+        if (value == null) {
+            synchronized (this) {
+                if (value == null) {
+                    value = supplier.get();
+                }
+            }
+        }
+        return value;
     }
 
 }

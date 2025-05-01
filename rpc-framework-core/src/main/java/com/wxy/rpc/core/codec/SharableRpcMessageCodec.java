@@ -66,7 +66,7 @@ public class SharableRpcMessageCodec extends MessageToMessageCodec<ByteBuf, RpcM
         Object body = msg.getBody();
         // 获取序列化算法
         Serialization serialization = SerializationFactory
-                .getSerialization(SerializationType.parseByType(header.getSerializerType()));
+                .getSerialization(header.getSerializerType());
         // 进行序列化
         byte[] bytes = serialization.serialize(body);
         // 设置消息体长度
@@ -129,7 +129,7 @@ public class SharableRpcMessageCodec extends MessageToMessageCodec<ByteBuf, RpcM
 
         // 获取反序列化算法
         Serialization serialization = SerializationFactory
-                .getSerialization(SerializationType.parseByType(serializeType));
+                .getSerialization(serializeType);
         // 获取消息枚举类型
         MessageType type = MessageType.parseByType(messageType);
         RpcMessage protocol = new RpcMessage();

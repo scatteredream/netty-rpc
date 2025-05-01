@@ -3,6 +3,7 @@ package com.wxy.rpc.core.protocol;
 import com.wxy.rpc.core.constant.ProtocolConstants;
 import com.wxy.rpc.core.enums.MessageType;
 import com.wxy.rpc.core.enums.SerializationType;
+import com.wxy.rpc.core.serialization.SerializationFactory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -70,10 +71,11 @@ public class MessageHeader {
      * @return 构造指定序列化算法的默认协议头对象
      */
     public static MessageHeader build(String serializeName) {
+        byte type = SerializationFactory.getType(serializeName);
         return MessageHeader.builder()
                 .magicNum(ProtocolConstants.MAGIC_NUM)
                 .version(ProtocolConstants.VERSION)
-                .serializerType(SerializationType.parseByName(serializeName).getType())
+                .serializerType(type)
                 .messageType(MessageType.REQUEST.getType())
                 .sequenceId(ProtocolConstants.getSequenceId()) // 添加唯一 ID 生成
                 .build();

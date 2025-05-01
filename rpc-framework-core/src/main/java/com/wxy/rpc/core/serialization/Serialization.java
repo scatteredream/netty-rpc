@@ -24,4 +24,6 @@ public interface Serialization {
      */
     <T> T deserialize(Class<T> clazz, byte[] bytes);
 
+    byte getType();
+
 }

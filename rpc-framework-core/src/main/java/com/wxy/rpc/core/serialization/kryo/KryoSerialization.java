@@ -62,4 +62,9 @@ public class KryoSerialization implements Serialization {
             throw new SerializeException("Kryo deserialize failed.", e);
         }
     }
+
+    @Override
+    public byte getType() {
+        return (byte) 3;
+    }
 }

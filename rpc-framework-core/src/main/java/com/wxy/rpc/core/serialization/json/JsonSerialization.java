@@ -57,4 +57,9 @@ public class JsonSerialization implements Serialization {
             throw new SerializeException("Json deserialize failed.", e);
         }
     }
+
+    @Override
+    public byte getType() {
+        return (byte) 1;
+    }
 }

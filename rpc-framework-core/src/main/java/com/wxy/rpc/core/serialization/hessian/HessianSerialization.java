@@ -42,4 +42,9 @@ public class HessianSerialization implements Serialization {
         }
     }
 
+    @Override
+    public byte getType() {
+        return (byte) 2;
+    }
+
 }

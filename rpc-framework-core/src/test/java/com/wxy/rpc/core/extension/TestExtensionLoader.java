@@ -35,10 +35,10 @@ public class TestExtensionLoader {
         // 下方需要依赖注入，解决（实现 IOC 或提供 空参构造方法）
 
         ExtensionLoader<ServiceDiscovery> discoveryExtensionLoader = ExtensionLoader.getExtensionLoader(ServiceDiscovery.class);
-        System.out.println(discoveryExtensionLoader.getExtension("zk"));
+        System.out.println(discoveryExtensionLoader.getExtension("zookeeper"));
 
         ExtensionLoader<ServiceRegistry> registryExtensionLoader = ExtensionLoader.getExtensionLoader(ServiceRegistry.class);
-        System.out.println(registryExtensionLoader.getExtension("zk"));
+        System.out.println(registryExtensionLoader.getExtension("zookeeper"));
     }
 
 }

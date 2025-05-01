@@ -47,4 +47,9 @@ public class ProtostuffSerialization implements Serialization {
             throw new SerializeException("Protostuff deserialize failed.", e);
         }
     }
+
+    @Override
+    public byte getType() {
+        return (byte) 4;
+    }
 }

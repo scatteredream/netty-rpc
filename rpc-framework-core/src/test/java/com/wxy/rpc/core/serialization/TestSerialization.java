@@ -47,7 +47,7 @@ public class TestSerialization {
         buf.writeByte(header.getMessageStatus());
         buf.writeInt(header.getSequenceId());
         Serialization serialization = SerializationFactory
-                .getSerialization(SerializationType.parseByType(header.getSerializerType()));
+                .getSerialization(header.getSerializerType());
         byte[] bytes = serialization.serialize(request);
         buf.writeInt(bytes.length);
         buf.writeBytes(bytes);

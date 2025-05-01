@@ -36,4 +36,9 @@ public class JdkSerialization implements Serialization {
             throw new SerializeException("Jdk deserialize failed.", e);
         }
     }
+
+    @Override
+    public byte getType() {
+        return (byte) 0;
+    }
 }

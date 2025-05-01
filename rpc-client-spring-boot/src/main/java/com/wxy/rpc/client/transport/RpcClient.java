@@ -21,4 +21,5 @@ public interface RpcClient {
      */
     RpcMessage sendRpcRequest(RequestMetadata requestMetadata);
 
+    void shutdownGracefully();
 }

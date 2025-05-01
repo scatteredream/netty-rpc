@@ -13,6 +13,9 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.CommandLineRunner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Rpc Server Bean Processor class
  * <p>
@@ -21,6 +24,8 @@ import org.springframework.boot.CommandLineRunner;
  */
 @Slf4j
 public class RpcServerBeanPostProcessor implements BeanPostProcessor, CommandLineRunner {
+
+    private final List<ServiceInfo> registeredInfos = new ArrayList<>();
 
     private final ServiceRegistry serviceRegistry;
 
@@ -68,8 +73,10 @@ public class RpcServerBeanPostProcessor implements BeanPostProcessor, CommandLin
                     .build();
             // 进行远程服务注册
             serviceRegistry.register(serviceInfo);
+            log.info("[{}] is registered as {}.", bean.getClass().getName(),serviceInfo);
             // 进行本地服务缓存注册
             LocalServiceCache.addService(serviceName, bean);
+            registeredInfos.add(serviceInfo);
         }
         return bean;
     }
@@ -87,8 +94,16 @@ public class RpcServerBeanPostProcessor implements BeanPostProcessor, CommandLin
                 rpcServer, properties.getAppName(), properties.getPort());
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
+                for(ServiceInfo serviceInfo : registeredInfos) {
+                    // 当服务关闭之后，将服务从 注册中心 上清除（关闭连接）
+                    LocalServiceCache.removeService(serviceInfo.getServiceName());
+                    serviceRegistry.unregister(serviceInfo);
+                }
+                log.info("Services unregistered successfully.");
+
                 // 当服务关闭之后，将服务从 注册中心 上清除（关闭连接）
                 serviceRegistry.destroy();
+                log.info("Connection with registry center destroyed successfully.");
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

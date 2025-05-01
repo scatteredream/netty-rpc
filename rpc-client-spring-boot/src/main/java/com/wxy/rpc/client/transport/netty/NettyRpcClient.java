@@ -18,6 +18,7 @@ import io.netty.util.concurrent.DefaultPromise;
 import io.netty.util.concurrent.Promise;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.CompletableFuture;
@@ -45,10 +46,15 @@ public class NettyRpcClient implements RpcClient {
      */
     private final EventLoopGroup eventLoopGroup;
 
+    private volatile boolean isShuttingDown = false;
     /**
      * Channel 对象缓存工具类
      */
     private final ChannelProvider channelProvider;
+    @Value("${rpc.client.max-retries:5}")
+    private static int MAX_RETRIES; // 最大重试次数
+    @Value("${rpc.client.base-delay:500}")
+    private static int BASE_DELAY; // 基础重试延迟(ms)
 
     public NettyRpcClient() {
         bootstrap = new Bootstrap();
@@ -130,31 +136,42 @@ public class NettyRpcClient implements RpcClient {
      */
     @SneakyThrows
     public Channel doConnect(InetSocketAddress inetSocketAddress) {
-        // 方式一，不用打印提示信息可以使用的方案
-        // sync() 同步等待异步connect连接成功
-//        Channel channel = bootstrap.connect(inetSocketAddress).sync().channel();
-        // 设置同步等待异步关闭完成
-//        channel.closeFuture().sync();
+        return doConnectWithRetry(inetSocketAddress, MAX_RETRIES);
+    }
 
-        // 方式二，打印提示信息使用方案
-        CompletableFuture<Channel> completableFuture = new CompletableFuture<>();
-        bootstrap.connect(inetSocketAddress).addListener((ChannelFutureListener) future -> {
-            if (future.isSuccess()) {
-                log.debug("The client has successfully connected to server [{}]!", inetSocketAddress.toString());
-                completableFuture.complete(future.channel());
-            } else {
-                throw new RpcException(String.format("The client failed to connect to [%s].", inetSocketAddress.toString()));
+    @SneakyThrows
+    public Channel doConnectWithRetry(InetSocketAddress inetSocketAddress, int remainingRetries){
+        if (isShuttingDown) {
+            log.info("Client is shutting down, not retrying connection to server [{}]", inetSocketAddress);
+            return null;
+        }
+        CompletableFuture<Channel> cf = new CompletableFuture<>();
+        bootstrap.connect(inetSocketAddress).addListener((ChannelFutureListener)future -> {
+            if (!future.isSuccess()) { // 不成功,指数退避重试
+                if (remainingRetries > 0) {
+                    long delay = calculateRetryDelay(remainingRetries);
+                    log.info("Retrying connection to {} in {} ms", inetSocketAddress, delay);
+                    eventLoopGroup.schedule(() -> doConnectWithRetry(inetSocketAddress, remainingRetries - 1)
+                    , delay, TimeUnit.MILLISECONDS);
+                } else {
+                    log.error("Failed to connect to {} after {} retries", inetSocketAddress, MAX_RETRIES);
+                }
+            }
+            else{
+                log.info("Connected to {} successfully", inetSocketAddress);
+                cf.complete(future.channel());
             }
         });
-        // 等待 future 完成返回结果
-        Channel channel = completableFuture.get();
-        // 添加异步关闭之后的操作
+        Channel channel = cf.get();
         channel.closeFuture().addListener(future -> {
             log.info("The client has been disconnected from server [{}].", inetSocketAddress.toString());
         });
         return channel;
     }
-
+    private long calculateRetryDelay(int remainingRetries) {
+        int attempt = MAX_RETRIES - remainingRetries + 1;
+        return (long) (Math.pow(2, attempt) * BASE_DELAY); // 指数退避基础500ms
+    }
     /**
      * 获取 Channel
      *
@@ -170,7 +187,28 @@ public class NettyRpcClient implements RpcClient {
         return channel;
     }
 
-    public void close() {
-        eventLoopGroup.shutdownGracefully();
+    /**
+     * 优雅关闭
+     */
+    @Override
+    public synchronized void shutdownGracefully() {
+        if (isShuttingDown) {
+            log.info("Client is already shutting down");
+            return;
+        }
+        isShuttingDown = true;
+        log.info("NETTY RPC client is shutting down...");
+        channelProvider.shutdownGracefully();
+        if (eventLoopGroup != null) {
+            eventLoopGroup.shutdownGracefully()
+                    .addListener(future -> {
+                        if (future.isSuccess()) {
+                            log.info("EventLoopGroup shutdown gracefully");
+                        } else {
+                            log.error("Failed to shutdown EventLoopGroup", future.cause());
+                        }
+                    });
+        }
+        log.info("NETTY RPC client shutdown gracefully.");
     }
 }

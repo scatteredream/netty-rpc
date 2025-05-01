@@ -5,6 +5,7 @@ import com.wxy.rpc.client.transport.RpcClient;
 import com.wxy.rpc.core.common.RpcResponse;
 import com.wxy.rpc.core.exception.RpcException;
 import com.wxy.rpc.core.protocol.RpcMessage;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -22,6 +23,7 @@ import java.net.Socket;
  * @ClassName SocketRpcClient
  * @Date 2023/1/12 13:36
  */
+@Slf4j
 public class SocketRpcClient implements RpcClient {
 
     @Override
@@ -46,5 +48,9 @@ public class SocketRpcClient implements RpcClient {
         } catch (IOException | ClassNotFoundException e) {
             throw new RpcException("The socket client failed to send or receive message.", e);
         }
+    }
+    @Override
+    public void shutdownGracefully() {
+        log.info("SOCKET RPC client shutdown gracefully.");
     }
 }

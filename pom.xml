@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.wxy.rpc</groupId>
-    <artifactId>wxy-rpc</artifactId>
+    <artifactId>netty-rpc</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
 
-    <name>wxy-rpc</name>
+    <name>netty-rpc</name>
     <url>http://maven.apache.org</url>
     <modules>
         <module>consumer</module>

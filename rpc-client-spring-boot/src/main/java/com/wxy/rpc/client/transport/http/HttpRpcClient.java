@@ -4,6 +4,7 @@ import com.wxy.rpc.client.common.RequestMetadata;
 import com.wxy.rpc.client.transport.RpcClient;
 import com.wxy.rpc.core.common.RpcResponse;
 import com.wxy.rpc.core.protocol.RpcMessage;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -17,6 +18,7 @@ import java.net.URL;
  * @ClassName HttpRpcClient
  * @Date 2023/1/7 11:12
  */
+@Slf4j
 public class HttpRpcClient implements RpcClient {
 
     @Override
@@ -49,6 +51,11 @@ public class HttpRpcClient implements RpcClient {
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void shutdownGracefully() {
+        log.info("HTTP RPC Client shutdown gracefully.");
     }
 
 }

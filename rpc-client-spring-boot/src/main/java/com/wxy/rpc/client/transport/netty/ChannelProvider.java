@@ -1,6 +1,9 @@
 package com.wxy.rpc.client.transport.netty;
 
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
+import lombok.extern.slf4j.Slf4j;
 
 import java.net.InetSocketAddress;
 import java.util.Map;
@@ -14,6 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @ClassName ChannelProvider
  * @Date 2023/1/6 18:16
  */
+@Slf4j
 public class ChannelProvider {
 
     /**
@@ -49,5 +53,26 @@ public class ChannelProvider {
 
     public void set(InetSocketAddress inetSocketAddress, Channel channel) {
         this.set(inetSocketAddress.getHostName(), inetSocketAddress.getPort(), channel);
+    }
+    public void shutdownGracefully() {
+        for (Map.Entry<String, Channel> entry : channels.entrySet()) {
+            Channel channel = entry.getValue();
+            if (channel != null && channel.isActive()) {
+                channel.close().addListener((ChannelFutureListener) future -> {
+                    if (future.isSuccess()) {
+                        log.info("Channel {} (connected to server [{}]) closed successfully",
+                                future.channel().id().asLongText(),
+                                entry.getKey());
+                    }
+                    else {
+                        log.error("Failed to close channel {} (connected to server [{}])",
+                                future.channel().id().asLongText(),
+                                entry.getKey(), future.cause());
+                    }
+                });
+            }
+        }
+        channels.clear();
+        log.info("ChannelProvider shutdown gracefully");
     }
 }

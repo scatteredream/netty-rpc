@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.wxy.rpc</groupId>
-        <artifactId>wxy-rpc</artifactId>
+        <artifactId>netty-rpc</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
         <!-- <relativePath/> 设定一个空值将始终从仓库中获取，不从本地路径获取 -->

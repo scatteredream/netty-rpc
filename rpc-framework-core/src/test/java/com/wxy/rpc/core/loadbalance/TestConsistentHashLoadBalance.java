@@ -11,8 +11,8 @@ import java.util.TreeSet;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName TestConsistentHashLoadBalance
- * @Date 2025/1/11 10:35
+ * {@code ClassName} TestConsistentHashLoadBalance
+ * {@code Date} 2025/1/11 10:35
  */
 public class TestConsistentHashLoadBalance {
 

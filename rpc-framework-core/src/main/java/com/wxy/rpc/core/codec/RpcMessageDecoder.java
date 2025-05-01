@@ -9,8 +9,8 @@ import java.util.List;
 /**
  * @author Wuxy
  * @version 1.0
- * @ClassName RpcMessageDecoder
- * @Date 2025/1/5 12:41
+ * {@code ClassName} RpcMessageDecoder
+ * {@code Date} 2025/1/5 12:41
  */
 public class RpcMessageDecoder extends ByteToMessageDecoder {
     @Override

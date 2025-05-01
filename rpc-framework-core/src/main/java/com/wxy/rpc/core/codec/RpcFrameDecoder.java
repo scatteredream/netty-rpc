@@ -8,8 +8,8 @@ import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName RpcFrameDecoder
- * @Date 2025/1/5 0:09
+ * {@code ClassName} RpcFrameDecoder
+ * {@code Date} 2025/1/5 0:09
  * @see LengthFieldBasedFrameDecoder
  */
 public class RpcFrameDecoder extends LengthFieldBasedFrameDecoder {

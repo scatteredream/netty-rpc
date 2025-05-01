@@ -10,8 +10,8 @@ import java.io.Serializable;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName HeartbeatMessage
- * @Date 2025/1/7 18:31
+ * {@code ClassName} HeartbeatMessage
+ * {@code Date} 2025/1/7 18:31
  */
 @Data
 @Builder

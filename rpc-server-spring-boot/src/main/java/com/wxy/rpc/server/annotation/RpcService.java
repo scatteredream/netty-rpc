@@ -7,8 +7,8 @@ import java.lang.annotation.*;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName RpcService
- * @Date 2025/1/6 17:15
+ * {@code ClassName} RpcService
+ * {@code Date} 2025/1/6 17:15
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

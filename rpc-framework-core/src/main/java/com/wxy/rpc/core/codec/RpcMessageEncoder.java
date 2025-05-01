@@ -7,8 +7,8 @@ import io.netty.handler.codec.MessageToByteEncoder;
 /**
  * @author Wuxy
  * @version 1.0
- * @ClassName RpcMessageEncoder
- * @Date 2025/1/4 23:15
+ * {@code ClassName} RpcMessageEncoder
+ * {@code Date} 2025/1/4 23:15
  */
 public class RpcMessageEncoder<T> extends MessageToByteEncoder<T> {
 

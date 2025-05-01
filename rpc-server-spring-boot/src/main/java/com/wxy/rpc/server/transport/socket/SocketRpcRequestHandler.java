@@ -17,8 +17,8 @@ import java.net.Socket;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName SocketRpcRequestHandler
- * @Date 2025/1/12 16:36
+ * {@code ClassName} SocketRpcRequestHandler
+ * {@code Date} 2025/1/12 16:36
  */
 @Slf4j
 public class SocketRpcRequestHandler implements Runnable {

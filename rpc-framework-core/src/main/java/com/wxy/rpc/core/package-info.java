@@ -3,7 +3,7 @@
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName package-info
+ * {@code ClassName} package-info
  * @see com.wxy.rpc.core.codec.SharableRpcMessageCodec
  * @see com.wxy.rpc.core.discovery.ServiceDiscovery
  * @see com.wxy.rpc.core.discovery.ServiceDiscovery

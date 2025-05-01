@@ -9,13 +9,14 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author Wuxy
  * @version 1.0
- * @ClassName TestZookeeperServiceRegistry
- * @Date 2025/1/5 22:50
+ * {@code ClassName} TestZookeeperServiceRegistry
+ * {@code Date} 2025/1/5 22:50
  */
 public class TestZookeeperServiceRegistry {
 
     public static void main(String[] args) throws Exception {
-        ServiceRegistry serviceRegistry = new ZookeeperServiceRegistry("192.168.247.130:2181");
+        ServiceRegistry serviceRegistry = new ZookeeperServiceRegistry();
+        serviceRegistry.setRegistryAddr("127.0.0.1:2181");
 
         ServiceInfo serviceInfo = ServiceInfo.builder()
                 .appName("rpc")

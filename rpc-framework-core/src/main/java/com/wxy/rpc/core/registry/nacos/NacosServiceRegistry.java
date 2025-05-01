@@ -15,11 +15,11 @@ import lombok.extern.slf4j.Slf4j;
  *
  * @author Wuxy
  * @version 1.0
- * {@code @ClassName} NacosServiceRegistry
+ * {@code ClassName} NacosServiceRegistry
  * @see com.alibaba.nacos.api.naming.NamingService
  * @see com.alibaba.nacos.api.naming.pojo.Instance
  * @see com.alibaba.nacos.api.naming.NamingFactory
- * {@code @Date} 2025/1/8 16:18
+ * {@code Date} 2025/1/8 16:18
  */
 @Slf4j
 public class NacosServiceRegistry extends ServiceRegistry {

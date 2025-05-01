@@ -11,8 +11,8 @@ import java.net.UnknownHostException;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName RpcServerProperties
- * @Date 2025/1/6 23:33
+ * {@code ClassName} RpcServerProperties
+ * {@code Date} 2025/1/6 23:33
  */
 @Data
 @ConfigurationProperties(prefix = "rpc.server")

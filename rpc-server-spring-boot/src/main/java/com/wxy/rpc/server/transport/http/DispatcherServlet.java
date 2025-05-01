@@ -16,8 +16,8 @@ import java.util.concurrent.TimeUnit;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName DispatcherServlet
- * @Date 2025/1/12 16:45
+ * {@code ClassName} DispatcherServlet
+ * {@code Date} 2025/1/12 16:45
  */
 public class DispatcherServlet extends HttpServlet {
 

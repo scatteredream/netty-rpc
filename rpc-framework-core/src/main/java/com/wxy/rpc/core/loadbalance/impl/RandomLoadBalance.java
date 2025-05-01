@@ -12,8 +12,8 @@ import java.util.Random;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName RandomLoadBalance
- * @Date 2025/1/5 16:35
+ * {@code ClassName} RandomLoadBalance
+ * {@code Date} 2025/1/5 16:35
  */
 public class RandomLoadBalance extends AbstractLoadBalance {
 

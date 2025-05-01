@@ -11,8 +11,8 @@ import java.util.List;
 /**
  * @author Wuxy
  * @version 1.0
- * @ClassName UserController
- * @Date 2025/1/8 23:47
+ * {@code ClassName} UserController
+ * {@code Date} 2025/1/8 23:47
  */
 @RestController
 public class UserController {

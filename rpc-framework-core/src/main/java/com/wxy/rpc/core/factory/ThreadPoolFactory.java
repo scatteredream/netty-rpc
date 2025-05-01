@@ -9,8 +9,8 @@ import java.util.concurrent.ThreadPoolExecutor;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName ThreadPoolFactory
- * @Date 2025/1/12 12:16
+ * {@code ClassName} ThreadPoolFactory
+ * {@code Date} 2025/1/12 12:16
  */
 public class ThreadPoolFactory {
 

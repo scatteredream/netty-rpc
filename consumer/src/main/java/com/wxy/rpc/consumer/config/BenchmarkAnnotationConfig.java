@@ -18,7 +18,7 @@ import java.util.Properties;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName BenchmarkAnnotationConfig
+ * {@code ClassName} BenchmarkAnnotationConfig
  * @since 2025/2/22 16:36
  */
 @ComponentScan("com.wxy.rpc")

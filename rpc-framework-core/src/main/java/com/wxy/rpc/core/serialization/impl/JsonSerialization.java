@@ -13,8 +13,8 @@ import java.nio.charset.StandardCharsets;
  *
  * @author Wuxy
  * @version 1.0
- * {@code @ClassName} JsonSerialization
- * {@code @Date} 2025/1/5 12:23
+ * {@code ClassName} JsonSerialization
+ * {@code Date} 2025/1/5 12:23
  */
 public class JsonSerialization implements Serialization {
 

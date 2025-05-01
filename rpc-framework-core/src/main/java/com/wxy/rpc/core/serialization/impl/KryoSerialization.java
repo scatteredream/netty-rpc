@@ -20,8 +20,8 @@ import java.io.ByteArrayOutputStream;
  *
  * @author Wuxy
  * @version 1.0
- * {@code @ClassName} KryoSerialization
- * {@code @Date} 2025/1/6 15:22
+ * {@code ClassName} KryoSerialization
+ * {@code Date} 2025/1/6 15:22
  */
 public class KryoSerialization implements Serialization {
 

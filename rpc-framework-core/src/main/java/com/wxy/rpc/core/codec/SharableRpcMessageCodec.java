@@ -34,8 +34,8 @@ import java.util.List;
  *
  * @author Wuxy
  * @version 1.0
- * {@code @ClassName} SharableRpcMessageCodec
- * {@code @Date} 2025/1/4 23:51
+ * {@code ClassName} SharableRpcMessageCodec
+ * {@code Date} 2025/1/4 23:51
  * @see io.netty.handler.codec.MessageToMessageCodec
  * @see io.netty.channel.ChannelInboundHandlerAdapter
  * @see io.netty.channel.ChannelOutboundHandlerAdapter

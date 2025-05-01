@@ -11,8 +11,8 @@ import java.util.Map;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName ServiceUtil
- * @Date 2025/1/5 20:57
+ * {@code ClassName} ServiceUtil
+ * {@code Date} 2025/1/5 20:57
  */
 public class ServiceUtil {
     public static final Gson gson = new Gson();

@@ -13,8 +13,8 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author Wuxy
  * @version 1.0
- * {@code @ClassName} ChannelProvider
- * {@code @Date} 2025/1/6 18:16
+ * {@code ClassName} ChannelProvider
+ * {@code Date} 2025/1/6 18:16
  */
 @Slf4j
 public class ChannelProvider {

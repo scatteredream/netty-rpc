@@ -20,8 +20,8 @@ import java.net.Socket;
  * </p>
  * @author Wuxy
  * @version 1.0
- * @ClassName SocketRpcClient
- * @Date 2025/1/12 13:36
+ * {@code ClassName} SocketRpcClient
+ * {@code Date} 2025/1/12 13:36
  */
 @Slf4j
 public class SocketRpcClient implements RpcClient {

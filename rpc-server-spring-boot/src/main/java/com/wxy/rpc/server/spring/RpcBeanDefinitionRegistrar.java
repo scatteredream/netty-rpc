@@ -16,8 +16,8 @@ import org.springframework.core.type.StandardAnnotationMetadata;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName RpcBeanDefinitionRegistrar
- * @Date 2025/1/9 17:33
+ * {@code ClassName} RpcBeanDefinitionRegistrar
+ * {@code Date} 2025/1/9 17:33
  */
 @Slf4j
 public class RpcBeanDefinitionRegistrar implements ImportBeanDefinitionRegistrar, ResourceLoaderAware {

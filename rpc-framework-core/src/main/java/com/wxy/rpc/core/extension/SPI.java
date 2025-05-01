@@ -7,8 +7,8 @@ import java.lang.annotation.*;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName SPI
- * @Date 2025/1/11 19:04
+ * {@code ClassName} SPI
+ * {@code Date} 2025/1/11 19:04
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

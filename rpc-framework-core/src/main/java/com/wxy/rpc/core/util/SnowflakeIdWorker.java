@@ -3,8 +3,8 @@ package com.wxy.rpc.core.util;
 /**
  * @author Wuxy
  * @version 1.0
- * @ClassName SnowflakeIdWorker
- * @Date 2025/1/5 18:21
+ * {@code ClassName} SnowflakeIdWorker
+ * {@code Date} 2025/1/5 18:21
  */
 public class SnowflakeIdWorker {
 

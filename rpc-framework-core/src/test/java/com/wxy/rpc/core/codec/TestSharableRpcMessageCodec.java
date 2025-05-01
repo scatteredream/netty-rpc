@@ -5,8 +5,8 @@ import io.netty.channel.nio.NioEventLoopGroup;
 /**
  * @author Wuxy
  * @version 1.0
- * @ClassName TestSharableRpcMessageCodec
- * @Date 2025/1/5 17:19
+ * {@code ClassName} TestSharableRpcMessageCodec
+ * {@code Date} 2025/1/5 17:19
  */
 public class TestSharableRpcMessageCodec {
 

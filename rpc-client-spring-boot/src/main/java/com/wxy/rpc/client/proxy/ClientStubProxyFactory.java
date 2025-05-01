@@ -15,8 +15,8 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName ClientStubProxyFactory
- * @Date 2025/1/7 14:54
+ * {@code ClassName} ClientStubProxyFactory
+ * {@code Date} 2025/1/7 14:54
  */
 public class ClientStubProxyFactory {
 

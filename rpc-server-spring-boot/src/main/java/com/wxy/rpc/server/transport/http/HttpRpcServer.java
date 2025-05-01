@@ -20,8 +20,8 @@ import java.net.UnknownHostException;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName HttpRpcServer
- * @Date 2025/1/7 11:11
+ * {@code ClassName} HttpRpcServer
+ * {@code Date} 2025/1/7 11:11
  */
 public class HttpRpcServer implements RpcServer {
 

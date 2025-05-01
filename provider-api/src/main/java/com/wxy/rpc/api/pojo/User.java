@@ -9,8 +9,8 @@ import java.io.Serializable;
 /**
  * @author Wuxy
  * @version 1.0
- * @ClassName User
- * @Date 2025/1/8 23:41
+ * {@code ClassName} User
+ * {@code Date} 2025/1/8 23:41
  */
 @Data
 @AllArgsConstructor

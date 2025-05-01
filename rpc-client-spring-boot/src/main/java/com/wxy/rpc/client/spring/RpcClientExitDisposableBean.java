@@ -10,8 +10,8 @@ import org.springframework.beans.factory.DisposableBean;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName RpcClientExitDisposableBean
- * @Date 2025/1/10 16:43
+ * {@code ClassName} RpcClientExitDisposableBean
+ * {@code Date} 2025/1/10 16:43
  */
 @Slf4j
 public class RpcClientExitDisposableBean implements DisposableBean {

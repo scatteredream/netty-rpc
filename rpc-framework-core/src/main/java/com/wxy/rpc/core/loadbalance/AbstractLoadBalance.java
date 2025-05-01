@@ -10,8 +10,8 @@ import java.util.List;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName AbstractLoadBalance
- * @Date 2025/1/10 22:31
+ * {@code ClassName} AbstractLoadBalance
+ * {@code Date} 2025/1/10 22:31
  */
 public abstract class AbstractLoadBalance implements LoadBalance {
     @Override

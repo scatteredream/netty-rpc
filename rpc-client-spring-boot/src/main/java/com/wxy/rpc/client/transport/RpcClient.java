@@ -8,8 +8,8 @@ import com.wxy.rpc.core.protocol.RpcMessage;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName RpcClient
- * @Date 2025/1/6 17:28
+ * {@code ClassName} RpcClient
+ * {@code Date} 2025/1/6 17:28
  */
 public interface RpcClient {
 

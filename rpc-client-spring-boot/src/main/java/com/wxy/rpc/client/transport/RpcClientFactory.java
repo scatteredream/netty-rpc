@@ -9,8 +9,8 @@ import com.wxy.rpc.client.transport.socket.SocketRpcClient;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName RpcClientFactory
- * @Date 2025/1/7 15:33
+ * {@code ClassName} RpcClientFactory
+ * {@code Date} 2025/1/7 15:33
  * @deprecated 当前类已被弃用，使用自定义 {@link com.wxy.rpc.core.extension.ExtensionLoader} 机制去动态加载 RpcClient 实现类
  */
 @Deprecated

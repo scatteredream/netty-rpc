@@ -21,8 +21,8 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName ConsistentHashLoadBalance
- * @Date 2025/1/8 12:10
+ * {@code ClassName} ConsistentHashLoadBalance
+ * {@code Date} 2025/1/8 12:10
  */
 public class ConsistentHashLoadBalance extends AbstractLoadBalance {
 

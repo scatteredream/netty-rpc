@@ -12,8 +12,8 @@ import java.lang.reflect.Method;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName ClientStubInvocationHandler
- * @Date 2025/1/7 14:03
+ * {@code ClassName} ClientStubInvocationHandler
+ * {@code Date} 2025/1/7 14:03
  */
 public class ClientStubInvocationHandler implements InvocationHandler {
 

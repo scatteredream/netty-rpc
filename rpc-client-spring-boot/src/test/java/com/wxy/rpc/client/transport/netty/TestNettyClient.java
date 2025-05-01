@@ -11,8 +11,8 @@ import com.wxy.rpc.core.protocol.RpcMessage;
 /**
  * @author Wuxy
  * @version 1.0
- * @ClassName TestNettyClient
- * @Date 2025/1/7 19:57
+ * {@code ClassName} TestNettyClient
+ * {@code Date} 2025/1/7 19:57
  */
 public class TestNettyClient {
 

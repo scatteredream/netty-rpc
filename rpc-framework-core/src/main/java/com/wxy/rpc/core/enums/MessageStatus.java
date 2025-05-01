@@ -7,8 +7,8 @@ import lombok.Getter;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName MessageStatus
- * @Date 2025/1/10 0:14
+ * {@code ClassName} MessageStatus
+ * {@code Date} 2025/1/10 0:14
  */
 public enum MessageStatus {
 

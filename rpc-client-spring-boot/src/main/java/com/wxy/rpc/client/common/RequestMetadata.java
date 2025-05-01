@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName RequestMetadata
- * @Date 2025/1/7 14:06
+ * {@code ClassName} RequestMetadata
+ * {@code Date} 2025/1/7 14:06
  */
 @Data
 @Builder

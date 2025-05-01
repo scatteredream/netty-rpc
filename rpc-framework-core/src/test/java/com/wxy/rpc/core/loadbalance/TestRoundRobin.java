@@ -6,8 +6,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * @author Wuxy
  * @version 1.0
- * @ClassName TestRoundRobin
- * @Date 2025/1/11 12:16
+ * {@code ClassName} TestRoundRobin
+ * {@code Date} 2025/1/11 12:16
  */
 public class TestRoundRobin {
 

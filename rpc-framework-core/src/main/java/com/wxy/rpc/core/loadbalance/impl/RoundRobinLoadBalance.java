@@ -12,8 +12,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName RoundRobinLoadBalance
- * @Date 2025/1/8 12:14
+ * {@code ClassName} RoundRobinLoadBalance
+ * {@code Date} 2025/1/8 12:14
  */
 public class RoundRobinLoadBalance extends AbstractLoadBalance {
 

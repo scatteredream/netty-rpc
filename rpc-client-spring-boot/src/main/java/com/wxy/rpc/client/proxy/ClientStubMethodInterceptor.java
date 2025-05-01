@@ -13,7 +13,7 @@ import java.lang.reflect.Method;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName ClientStubMethodInterceptor
+ * {@code ClassName} ClientStubMethodInterceptor
  * @since 2025/2/7 9:35
  */
 public class ClientStubMethodInterceptor implements MethodInterceptor {

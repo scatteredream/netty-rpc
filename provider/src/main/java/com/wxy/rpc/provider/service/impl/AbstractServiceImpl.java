@@ -6,7 +6,7 @@ import com.wxy.rpc.server.annotation.RpcService;
 /**
  * @author Wuxy
  * @version 1.0
- * @ClassName AbstractServiceImpl
+ * {@code ClassName} AbstractServiceImpl
  * @since 2025/2/7 9:57
  */
 @RpcService(interfaceClass = AbstractService.class)

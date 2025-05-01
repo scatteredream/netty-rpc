@@ -13,8 +13,8 @@ import java.util.Map;
 /**
  * @author Wuxy
  * @version 1.0
- * @ClassName HelloController
- * @Date 2025/1/8 10:12
+ * {@code ClassName} HelloController
+ * {@code Date} 2025/1/8 10:12
  */
 @RestController
 @RequestMapping

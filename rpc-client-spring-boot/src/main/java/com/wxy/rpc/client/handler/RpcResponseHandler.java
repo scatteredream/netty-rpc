@@ -23,8 +23,8 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName RpcResponseHandler
- * @Date 2025/1/6 19:07
+ * {@code ClassName} RpcResponseHandler
+ * {@code Date} 2025/1/6 19:07
  */
 @Slf4j
 public class RpcResponseHandler extends SimpleChannelInboundHandler<RpcMessage> {

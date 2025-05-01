@@ -29,8 +29,8 @@ import java.util.concurrent.TimeUnit;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName NettyRpcServer
- * @Date 2025/1/6 17:28
+ * {@code ClassName} NettyRpcServer
+ * {@code Date} 2025/1/6 17:28
  */
 @Slf4j
 public class NettyRpcServer implements RpcServer {

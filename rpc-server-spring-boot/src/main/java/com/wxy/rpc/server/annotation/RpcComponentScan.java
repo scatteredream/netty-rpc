@@ -19,8 +19,8 @@ import java.lang.annotation.*;
  *
  * @author Wuxy
  * @version 1.0
- * {@code @ClassName} RpcComponentScan
- * {@code @Date} 2025/1/9 17:18
+ * {@code ClassName} RpcComponentScan
+ * {@code Date} 2025/1/9 17:18
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

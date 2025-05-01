@@ -18,8 +18,8 @@ import java.io.ObjectOutputStream;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName HttpRpcRequestHandler
- * @Date 2025/1/12 16:47
+ * {@code ClassName} HttpRpcRequestHandler
+ * {@code Date} 2025/1/12 16:47
  */
 @Slf4j
 public class HttpRpcRequestHandler {

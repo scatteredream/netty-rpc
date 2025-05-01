@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName BenchmarkTest
+ * {@code ClassName} BenchmarkTest
  * @since 2025/2/22 16:33
  */
 @BenchmarkMode({Mode.All})

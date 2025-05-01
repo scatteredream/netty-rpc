@@ -18,7 +18,7 @@ import java.lang.reflect.Method;
  *
  * @author Wuxy
  * @version 1.0
- * @ClassName RemoteMethodCall
+ * {@code ClassName} RemoteMethodCall
  * @since 2025/2/7 9:25
  */
 public class RemoteMethodCall {

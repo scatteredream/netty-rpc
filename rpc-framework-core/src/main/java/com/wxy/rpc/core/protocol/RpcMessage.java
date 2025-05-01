@@ -7,7 +7,7 @@ import lombok.Data;
  *
  * @author Wuxy
  * @version 1.0
- * @Date 2025/1/4
+ * {@code Date} 2025/1/4
  */
 @Data
 public class RpcMessage {

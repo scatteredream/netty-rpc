@@ -6,6 +6,7 @@ import com.wxy.rpc.core.discovery.ServiceDiscovery;
 import com.wxy.rpc.core.loadbalance.LoadBalance;
 import com.wxy.rpc.core.registry.ServiceRegistry;
 import com.wxy.rpc.core.serialization.Serialization;
+import com.wxy.rpc.core.serialization.SerializationFactory;
 
 import java.util.Arrays;
 
@@ -39,6 +40,7 @@ public class TestExtensionLoader {
 
         ExtensionLoader<ServiceRegistry> registryExtensionLoader = ExtensionLoader.getExtensionLoader(ServiceRegistry.class);
         System.out.println(registryExtensionLoader.getExtension("zookeeper"));
+        System.out.println(SerializationFactory.getSerialization(SerializationFactory.getType("protostuff")));
     }
 
 }

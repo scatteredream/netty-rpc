@@ -36,9 +36,10 @@ public class SerializationFactory {
                 byte type = instance.getType();
                 String className = clazz.getSimpleName();
                 String key = className.replace("Serialization", "").toLowerCase();
+                log.debug("find serializer: {}，code: {}", className, type);
                 // 处理重复的type
                 if (typeToNameMap.containsKey(type)) {
-                    log.error("警告: 类型 {} 重复，类 {} 将被忽略", type, clazz.getName());
+                    log.error("warning: code {} duplicated，class {} will be omitted", type, clazz.getName());
                     continue;
                 }
                 typeToNameMap.put(type, key);

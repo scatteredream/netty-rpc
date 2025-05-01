@@ -39,6 +39,7 @@
         <tomcat.version>9.0.22</tomcat.version>
         <cglib.version>3.1</cglib.version>
         <nacos.version>2.1.1</nacos.version>
+        <reflections.version>0.10.2</reflections.version>
     </properties>
 
     <dependencyManagement>

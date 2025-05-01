@@ -21,6 +21,7 @@ public class UnprocessedRequestCache {
     /**
      * 缓存未处理的请求响应
      */
+    @SuppressWarnings("unused")
     private static final Map<Integer, CompletableFuture<RpcMessage>> UNPROCESSED_REQUESTS = new ConcurrentHashMap<>();
 
     public void processResponse() {

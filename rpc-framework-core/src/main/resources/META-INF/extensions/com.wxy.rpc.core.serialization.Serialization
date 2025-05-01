@@ -1,5 +1,5 @@
-protostuff=com.wxy.rpc.core.serialization.protostuff.ProtostuffSerialization
-kryo=com.wxy.rpc.core.serialization.kryo.KryoSerialization
-json=com.wxy.rpc.core.serialization.json.JsonSerialization
-jdk=com.wxy.rpc.core.serialization.jdk.JdkSerialization
-hessian=com.wxy.rpc.core.serialization.hessian.HessianSerialization
+protostuff=com.wxy.rpc.core.serialization.impl.ProtostuffSerialization
+kryo=com.wxy.rpc.core.serialization.impl.KryoSerialization
+json=com.wxy.rpc.core.serialization.impl.JsonSerialization
+jdk=com.wxy.rpc.core.serialization.impl.JdkSerialization
+hessian=com.wxy.rpc.core.serialization.impl.HessianSerialization

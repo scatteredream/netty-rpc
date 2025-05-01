@@ -8,7 +8,6 @@ import com.wxy.rpc.core.common.ServiceInfo;
 import com.wxy.rpc.core.exception.RpcException;
 import com.wxy.rpc.core.registry.ServiceRegistry;
 import com.wxy.rpc.core.util.ServiceUtil;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 /**

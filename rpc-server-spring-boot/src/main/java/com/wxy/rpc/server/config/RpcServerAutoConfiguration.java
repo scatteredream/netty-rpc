@@ -4,21 +4,16 @@ import com.wxy.rpc.core.extension.ExtensionFactory;
 import com.wxy.rpc.core.extension.Holder;
 import com.wxy.rpc.core.extension.factory.SpiExtensionFactory;
 import com.wxy.rpc.core.registry.ServiceRegistry;
-import com.wxy.rpc.core.registry.nacos.NacosServiceRegistry;
-import com.wxy.rpc.core.registry.zk.ZookeeperServiceRegistry;
 import com.wxy.rpc.server.spring.RpcServerBeanPostProcessor;
 import com.wxy.rpc.server.transport.RpcServer;
 import com.wxy.rpc.server.transport.http.HttpRpcServer;
 import com.wxy.rpc.server.transport.netty.NettyRpcServer;
 import com.wxy.rpc.server.transport.socket.SocketRpcServer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 
 /**
  * RpcServer 端的自动配置类

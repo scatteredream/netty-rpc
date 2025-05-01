@@ -4,7 +4,6 @@ import com.wxy.rpc.core.common.RpcRequest;
 import com.wxy.rpc.core.common.RpcResponse;
 import com.wxy.rpc.core.constant.ProtocolConstants;
 import com.wxy.rpc.core.enums.MessageType;
-import com.wxy.rpc.core.enums.SerializationType;
 import com.wxy.rpc.core.protocol.MessageHeader;
 import com.wxy.rpc.core.protocol.RpcMessage;
 import com.wxy.rpc.core.serialization.Serialization;

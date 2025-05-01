@@ -1,4 +1,4 @@
-package com.wxy.rpc.core.serialization.kryo;
+package com.wxy.rpc.core.serialization.impl;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;

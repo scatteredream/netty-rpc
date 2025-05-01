@@ -1,4 +1,4 @@
-package com.wxy.rpc.core.serialization.hessian;
+package com.wxy.rpc.core.serialization.impl;
 
 import com.caucho.hessian.io.HessianSerializerInput;
 import com.caucho.hessian.io.HessianSerializerOutput;

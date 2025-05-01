@@ -1,34 +1,24 @@
 package com.wxy.rpc.client.config;
 
-import com.wxy.rpc.client.spring.RpcClientBeanPostProcessor;
 import com.wxy.rpc.client.proxy.ClientStubProxyFactory;
+import com.wxy.rpc.client.spring.RpcClientBeanPostProcessor;
 import com.wxy.rpc.client.spring.RpcClientExitDisposableBean;
 import com.wxy.rpc.client.transport.RpcClient;
 import com.wxy.rpc.client.transport.http.HttpRpcClient;
 import com.wxy.rpc.client.transport.netty.NettyRpcClient;
 import com.wxy.rpc.client.transport.socket.SocketRpcClient;
 import com.wxy.rpc.core.discovery.ServiceDiscovery;
-import com.wxy.rpc.core.discovery.nacos.NacosServiceDiscovery;
-import com.wxy.rpc.core.discovery.zk.ZookeeperServiceDiscovery;
 import com.wxy.rpc.core.extension.ExtensionFactory;
 import com.wxy.rpc.core.extension.Holder;
 import com.wxy.rpc.core.extension.factory.SpiExtensionFactory;
-import com.wxy.rpc.core.loadbalance.impl.ConsistentHashLoadBalance;
 import com.wxy.rpc.core.loadbalance.LoadBalance;
-import com.wxy.rpc.core.loadbalance.impl.RandomLoadBalance;
-import com.wxy.rpc.core.loadbalance.impl.RoundRobinLoadBalance;
-import com.wxy.rpc.core.serialization.Serialization;
-import com.wxy.rpc.core.serialization.hessian.HessianSerialization;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
 
 /**

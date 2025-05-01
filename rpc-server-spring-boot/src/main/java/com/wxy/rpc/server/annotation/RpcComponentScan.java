@@ -3,9 +3,9 @@ package com.wxy.rpc.server.annotation;
 import com.wxy.rpc.server.spring.RpcBeanDefinitionRegistrar;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.core.type.AnnotationMetadata;
-import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 
 import java.lang.annotation.*;
 

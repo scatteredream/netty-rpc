@@ -1,4 +1,4 @@
-package com.wxy.rpc.core.serialization.protostuff;
+package com.wxy.rpc.core.serialization.impl;
 
 import com.wxy.rpc.core.exception.SerializeException;
 import com.wxy.rpc.core.serialization.Serialization;

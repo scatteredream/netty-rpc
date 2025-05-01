@@ -3,7 +3,6 @@ package com.wxy.rpc.core.registry.zk;
 import com.wxy.rpc.core.common.ServiceInfo;
 import com.wxy.rpc.core.exception.RpcException;
 import com.wxy.rpc.core.registry.ServiceRegistry;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;

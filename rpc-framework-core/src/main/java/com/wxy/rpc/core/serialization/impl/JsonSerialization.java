@@ -1,4 +1,4 @@
-package com.wxy.rpc.core.serialization.json;
+package com.wxy.rpc.core.serialization.impl;
 
 import com.google.gson.*;
 import com.wxy.rpc.core.exception.SerializeException;

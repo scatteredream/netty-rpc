@@ -2,7 +2,6 @@ package com.wxy.rpc.core.protocol;
 
 import com.wxy.rpc.core.constant.ProtocolConstants;
 import com.wxy.rpc.core.enums.MessageType;
-import com.wxy.rpc.core.enums.SerializationType;
 import com.wxy.rpc.core.serialization.SerializationFactory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

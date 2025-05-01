@@ -64,7 +64,7 @@ public class NettyRpcClient implements RpcClient {
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
-                    protected void initChannel(SocketChannel ch) throws Exception {
+                    protected void initChannel(SocketChannel ch) {
                         // 超过 15s 内如果没有向服务器写数据，会触发一个 IdleState#WRITE_IDLE 事件
                         ch.pipeline().addLast(new IdleStateHandler(0, 15, 0, TimeUnit.SECONDS));
                         // 添加 粘包拆包 解码器
@@ -163,9 +163,7 @@ public class NettyRpcClient implements RpcClient {
             }
         });
         Channel channel = cf.get();
-        channel.closeFuture().addListener(future -> {
-            log.info("The client has been disconnected from server [{}].", inetSocketAddress.toString());
-        });
+        channel.closeFuture().addListener(future -> log.info("The client has been disconnected from server [{}].", inetSocketAddress.toString()));
         return channel;
     }
     private long calculateRetryDelay(int remainingRetries) {

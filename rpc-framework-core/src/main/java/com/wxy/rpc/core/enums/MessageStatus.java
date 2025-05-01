@@ -29,8 +29,4 @@ public enum MessageStatus {
         this.code = code;
     }
 
-    public static boolean isSuccess(byte code) {
-        return MessageStatus.SUCCESS.code == code;
-    }
-
 }

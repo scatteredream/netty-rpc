@@ -12,8 +12,14 @@ public class TestSharableRpcMessageCodec {
 
     static class Server {
         public static void main(String[] args) {
-            NioEventLoopGroup boss = new NioEventLoopGroup();
-            NioEventLoopGroup worker = new NioEventLoopGroup();
+            try(NioEventLoopGroup boss = new NioEventLoopGroup();
+                NioEventLoopGroup worker = new NioEventLoopGroup()
+                    ){
+                System.out.println(boss);
+                System.out.println(worker);
+            }
+
+
         }
     }
 

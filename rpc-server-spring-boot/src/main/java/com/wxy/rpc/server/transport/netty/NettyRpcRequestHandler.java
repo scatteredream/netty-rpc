@@ -42,7 +42,7 @@ public class NettyRpcRequestHandler extends SimpleChannelInboundHandler<RpcMessa
     }
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, RpcMessage msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, RpcMessage msg) {
         threadPool.submit(() -> {
             try {
                 RpcMessage responseRpcMessage = new RpcMessage();
@@ -110,7 +110,7 @@ public class NettyRpcRequestHandler extends SimpleChannelInboundHandler<RpcMessa
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         log.error("server catch exception");
-        cause.printStackTrace();
+        log.error(cause.getMessage());
         ctx.close();
     }
 

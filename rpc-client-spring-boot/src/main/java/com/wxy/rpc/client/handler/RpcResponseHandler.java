@@ -35,7 +35,7 @@ public class RpcResponseHandler extends SimpleChannelInboundHandler<RpcMessage> 
     public static final Map<Integer, Promise<RpcMessage>> UNPROCESSED_RPC_RESPONSES = new ConcurrentHashMap<>();
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, RpcMessage msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, RpcMessage msg) {
         try {
             MessageType type = MessageType.parseByType(msg.getHeader().getMessageType());
             // 如果是 RpcRequest 请求
@@ -92,7 +92,6 @@ public class RpcResponseHandler extends SimpleChannelInboundHandler<RpcMessage> 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         log.error("client catch exception：", cause);
-        cause.printStackTrace();
         ctx.close();
     }
 }

@@ -63,7 +63,7 @@ public class NettyRpcServer implements RpcServer {
                     // 当客户端第一次请求时才会进行初始化
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
-                        protected void initChannel(SocketChannel ch) throws Exception {
+                        protected void initChannel(SocketChannel ch) {
                             // 30s内没有收到客户端的请求就关闭连接，会触发一个 IdleState#READER_IDLE 事件
                             ch.pipeline().addLast(new IdleStateHandler(30, 0, 0, TimeUnit.SECONDS));
                             ch.pipeline().addLast(new RpcFrameDecoder());

@@ -1,6 +1,7 @@
 # 基于 Netty 的 RPC 框架
 
 [碎梦：基于 Netty 的 RPC 框架（代码解析）](https://scatteredream.github.io/2025/02/03/rpc-interpretation) 
+[问题补充](https://docs.qq.com/doc/DY3Joc3RvbHVGVGta)
 
 ## 介绍
 
